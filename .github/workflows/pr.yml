@@ -14,10 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
@@ -30,7 +26,6 @@ jobs:
         id: docker_test_firefox
         uses: docker/build-push-action@v2
         with:
-          builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
           push: no
@@ -41,7 +36,6 @@ jobs:
         id: docker_test_chrome
         uses: docker/build-push-action@v2
         with:
-          builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
           push: no
@@ -52,7 +46,6 @@ jobs:
         id: docker_test_opera
         uses: docker/build-push-action@v2
         with:
-          builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
           push: no
@@ -63,7 +56,6 @@ jobs:
         id: docker_test_edge
         uses: docker/build-push-action@v2
         with:
-          builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
           push: no
