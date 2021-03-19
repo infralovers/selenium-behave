@@ -1,5 +1,5 @@
 ARG base-image
-FROM ${base-image}}
+FROM ${base-image}
 
 USER root
 RUN apt-get update -q \
