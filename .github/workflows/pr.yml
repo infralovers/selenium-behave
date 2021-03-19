@@ -35,7 +35,7 @@ jobs:
           file: ./Dockerfile
           push: no
           build-args: |
-            base-image: selenium/standalone-firefox:4
+            baseimage: selenium/standalone-firefox:4
 
       - name: Test chrome
         id: docker_test_chrome
@@ -46,7 +46,7 @@ jobs:
           file: ./Dockerfile
           push: no
           build-args: |
-            base-image: selenium/standalone-chrome:4
+            baseimage: selenium/standalone-chrome:4
 
       - name: Test opera
         id: docker_test_opera
@@ -57,7 +57,7 @@ jobs:
           file: ./Dockerfile
           push: no
           build-args: |
-            base-image: selenium/standalone-opera:4
+            baseimage: selenium/standalone-opera:4
 
       - name: Test edge
         id: docker_test_edge
@@ -68,5 +68,5 @@ jobs:
           file: ./Dockerfile
           push: no
           build-args: |
-            base-image: selenium/standalone-edge:4
+            baseimage: selenium/standalone-edge:4
 
