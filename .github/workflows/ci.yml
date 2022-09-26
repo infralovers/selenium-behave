@@ -16,7 +16,7 @@ jobs:
       id: semrel
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        prepended: true
+        prepend: true
         dry: true
 
     - name: Set up Docker Buildx
