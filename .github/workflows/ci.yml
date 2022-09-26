@@ -11,7 +11,8 @@ jobs:
   build:
     strategy:
       matrix:
-        baseimage: [ "standalone-chrome:4", "standalone-firefox:4", "standalone-opera:4", "standalone-edge:4"]
+        baseimage: [ "standalone-chrome", "standalone-firefox", "standalone-opera", "standalone-edge"]
+        baseversion: [ 4 ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -35,7 +36,7 @@ jobs:
         fi
         HUB_IMAGE="$IMAGE_REPO/$IMAGE_NAME"
         QUAY_IMAGE="quay.io/$IMAGE_REPO/$IMAGE_NAME"
-        VERSION=dev
+        VERSION="${{ matrix.baseversion}}-dev"
         if [[ '${{ steps.semrel.outputs.version }}'  != '' ]]; then
           VERSION=${{ steps.semrel.outputs.version }}
         fi
@@ -85,7 +86,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' && steps.semrel.outputs.version != '' }}
           tags: ${{ steps.prep.outputs.tags }}
           build-args: |
-            baseimage="selenium/${{ matrix.baseimage }}"
+            baseimage="selenium/${{ matrix.baseimage }}:{{ matrix.baseversion }}"
 
     - name: Update changelog
       uses: stefanzweifel/git-auto-commit-action@v4
