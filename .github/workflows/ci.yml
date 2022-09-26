@@ -108,7 +108,7 @@ jobs:
     steps:
     - uses: go-semantic-release/action@v1
       if: github.event_name != 'pull_request' && needs.prebuild.semrel.outputs.version != ''
-      id: semrel
+      id: generate_changelog
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         prepend: true
