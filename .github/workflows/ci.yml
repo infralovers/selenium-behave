@@ -107,7 +107,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: go-semantic-release/action@v1
-      if: github.event_name != 'pull_request' && needs.prebuild.semrel.outputs.version != ''
       id: generate_changelog
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
