@@ -86,7 +86,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' && steps.semrel.outputs.version != '' }}
           tags: ${{ steps.prep.outputs.tags }}
           build-args: |
-            SELENIUM_BASE="docker.io/selenium/${{ matrix.baseimage }}:${{ matrix.baseversion }}"
+            SELENIUM_BASE=docker.io/selenium/${{ matrix.baseimage }}:${{ matrix.baseversion }}
 
     - name: Update changelog
       uses: stefanzweifel/git-auto-commit-action@v4
