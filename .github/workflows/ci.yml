@@ -11,7 +11,7 @@ jobs:
   build:
     strategy:
       matrix:
-        baseimage: [ "standalone-chrome", "standalone-firefox", "standalone-opera", "standalone-edge"]
+        baseimage: [ standalone-chrome, standalone-firefox, standalone-opera, standalone-edge]
         baseversion: [ 4 ]
     runs-on: ubuntu-latest
     steps:
