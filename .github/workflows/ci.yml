@@ -47,7 +47,7 @@ jobs:
           IMAGE_REPO="${{ secrets.IMAGE_REPO }}"
         fi
         HUB_IMAGE="$IMAGE_REPO/$IMAGE_NAME"
-        QUAY_IMAGE="quay.io/$IMAGE_REPO/$IMAGE_NAME"
+        # QUAY_IMAGE="quay.io/$IMAGE_REPO/$IMAGE_NAME"
         VERSION="${{ matrix.baseversion}}-dev"
         if [[ '${{ needs.prebuild.outputs.version }}'  != '' ]]; then
           VERSION="${{ matrix.baseversion}}"
