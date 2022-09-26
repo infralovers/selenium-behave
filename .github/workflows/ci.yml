@@ -11,6 +11,8 @@ jobs:
 
   prebuild:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.semrel.outputs.version }}
     steps:
     - uses: go-semantic-release/action@v1
       if: github.event_name != 'pull_request'
@@ -61,7 +63,7 @@ jobs:
     - name: Prepare tagging
       id: prep
       run: |
-        echo "${{ needs.prebuild.semrel.outputs.version }}"
+        echo "${{ needs.prebuild.outputs.version }}"
 
         IMAGE_NAME="${{ matrix.baseimage }}"
         IMAGE_REPO=${{ github.repository_owner }}
@@ -74,8 +76,8 @@ jobs:
         HUB_IMAGE="$IMAGE_REPO/$IMAGE_NAME"
         QUAY_IMAGE="quay.io/$IMAGE_REPO/$IMAGE_NAME"
         VERSION="${{ matrix.baseversion}}-dev"
-        if [[ '${{ needs.prebuild.semrel.outputs.version }}'  != '' ]]; then
-          VERSION="${{ matrix.baseversion}}-${{ needs.prebuild.semrel.outputs.version }}"
+        if [[ '${{ needs.prebuild.outputs.version }}'  != '' ]]; then
+          VERSION="${{ matrix.baseversion}}"
         fi
         if [ "${{ github.event_name }}" = "schedule" ]; then
           VERSION="${{ matrix.baseversion}}-nightly"
@@ -94,8 +96,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          push: ${{ github.event_name != 'pull_request' && needs.prebuild.semrel.outputs.version != '' }}
-          tags: ${{ needs.prebuild.prep.outputs.tags }}
+          push: ${{ github.event_name != 'pull_request' && needs.prebuild.outputs.version != '' }}
+          tags: ${{ steps.prep.outputs.tags }}
           build-args: |
             SELENIUM_BASE=docker.io/selenium/${{ matrix.baseimage }}:${{ matrix.baseversion }}
 
@@ -105,6 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: go-semantic-release/action@v1
+      if: needs.prebuild.outputs.version != ''
       id: generate_changelog
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
