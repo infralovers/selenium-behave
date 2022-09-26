@@ -91,19 +91,13 @@ jobs:
           context: .
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' && needs.prebuild.semrel.outputs.version != '' }}
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: ${{ needs.prebuild.prep.outputs.tags }}
           build-args: |
             SELENIUM_BASE=docker.io/selenium/${{ matrix.baseimage }}:${{ matrix.baseversion }}
 
-    - name: Update changelog
-      uses: stefanzweifel/git-auto-commit-action@v4
-      if: github.event_name != 'pull_request' && needs.prebuild.semrel.outputs.version != ''
-      with:
-        commit_message: 'chore(ci): commit changes from go-semantic-release'
-        file_pattern: CHANGELOG.md
-
   release:
     needs: [ prebuild, build ]
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
     - uses: go-semantic-release/action@v1
@@ -112,3 +106,10 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         prepend: true
         changelog-file: CHANGELOG.md
+
+    - name: Update changelog
+      uses: stefanzweifel/git-auto-commit-action@v4
+      if: generate_changelog.outputs.version != ''
+      with:
+        commit_message: 'chore(ci): commit changes from go-semantic-release'
+        file_pattern: CHANGELOG.md
