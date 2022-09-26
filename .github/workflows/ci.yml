@@ -62,6 +62,7 @@ jobs:
       id: prep
       run: |
         echo "${{ needs.prebuild.semrel.outputs.version }}"
+
         IMAGE_NAME="${{ matrix.baseimage }}"
         IMAGE_REPO=${{ github.repository_owner }}
         if [[ -n "${{ secrets.IMAGE_NAME }}" ]]; then
