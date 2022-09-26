@@ -106,6 +106,7 @@ jobs:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
+
     - uses: go-semantic-release/action@v1
       if: needs.prebuild.outputs.version != ''
       id: generate_changelog
