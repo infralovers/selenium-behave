@@ -1,4 +1,4 @@
-ARG baseimage
+ARG baseimage=selenium/standalone-firefox:4
 FROM ${baseimage}
 
 USER root
