@@ -38,7 +38,7 @@ jobs:
       run: |
         echo "${{ needs.prebuild.outputs.version }}"
 
-        IMAGE_NAME="${{ matrix.baseimage }}"
+        IMAGE_NAME="${{ matrix.baseimage }}-behave"
         IMAGE_REPO=${{ github.repository_owner }}
         if [[ -n "${{ secrets.IMAGE_NAME }}" ]]; then
           IMAGE_NAME="${{ secrets.IMAGE_NAME }}"
