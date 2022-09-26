@@ -9,6 +9,9 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        baseimage: [ standalone-chrome:4, standalone-firefox:4, standalone-opera:4, standalone-edge:4 ]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +25,7 @@ jobs:
     - name: Prepare tagging
       id: prep
       run: |
-        IMAGE_NAME=$(basename ${{ github.repository }})
+        IMAGE_NAME="${{ matrix.baseimage }}"
         IMAGE_REPO=${{ github.repository_owner }}
         if [[ -n "${{ secrets.IMAGE_NAME }}" ]]; then
           IMAGE_NAME="${{ secrets.IMAGE_NAME }}"
@@ -81,6 +84,8 @@ jobs:
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' && steps.semrel.outputs.version != '' }}
           tags: ${{ steps.prep.outputs.tags }}
+          build-args: |
+            baseimage="selenium/${{ matrix.baseimage }}"
 
     - name: Update changelog
       uses: stefanzweifel/git-auto-commit-action@v4
