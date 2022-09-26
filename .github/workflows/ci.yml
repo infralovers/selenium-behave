@@ -103,10 +103,11 @@ jobs:
         file_pattern: CHANGELOG.md
 
   release:
-    needs: [ build ]
+    needs: [ prebuild, build ]
     runs-on: ubuntu-latest
     steps:
     - uses: go-semantic-release/action@v1
+      if: github.event_name != 'pull_request' && needs.prebuild.semrel.outputs.version != ''
       id: semrel
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
