@@ -3,4 +3,3 @@
 #### Bug Fixes
 
 * update of changelog (13e944c3)
-
