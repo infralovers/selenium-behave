@@ -33,7 +33,7 @@ jobs:
   build:
     strategy:
       matrix:
-        baseimage: [ standalone-chrome, standalone-firefox, standalone-opera, standalone-edge]
+        baseimage: [ standalone-chrome, standalone-firefox ]
         baseversion: [ 4.18 ]
     runs-on: ubuntu-latest
     needs: [ prebuild ]
