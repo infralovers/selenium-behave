@@ -24,7 +24,7 @@ jobs:
     with:
       dockerfile: Dockerfile
       score: 50
-      platforms: "linux/amd64, linux/arm64"
+      platforms: "linux/amd64"
       release: true
       image_name: "${{matrix.baseimage}}-behave"
       build_args: |
