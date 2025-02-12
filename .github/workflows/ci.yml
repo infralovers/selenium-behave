@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         baseimage: [ standalone-chrome, standalone-firefox ]
-        baseversion: [ 4.18 ]
+        baseversion: [ 4.28 ]
 
     uses: infralovers/.github/.github/workflows/container.yml@main
     secrets:
