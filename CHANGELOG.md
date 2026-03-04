@@ -1,3 +1,11 @@
+## 1.5.5 (2026-03-04)
+
+#### Bug Fixes
+
+* update workflow (79f1d5a6)
+* update base version (#13) (87676eb6)
+
+
 ## 1.5.4 (2024-05-08)
 
 #### Bug Fixes
